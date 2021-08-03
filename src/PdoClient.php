@@ -11,7 +11,7 @@ use PDOStatement;
 class PdoClient
 {
     /**
-     * @var \PDO
+     * @var PDO
      */
     protected $pdo;
 
