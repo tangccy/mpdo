@@ -18,7 +18,7 @@ $where = [
     ['id', '>=', 1],
     ['id', '<=', 3],
 ];
-$pdo = PdoClient::init($config);
+$pdo = PdoClient::connect($config);
 
 try {
     $data = $pdo->table('posts')->where($where)->select('`id`')->all();

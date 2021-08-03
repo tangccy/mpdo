@@ -58,7 +58,7 @@ class PdoClient
     protected $limit = "";
 
     //禁止实例化
-    private function __construct($user, $pass, $dsn)
+    private function __construct(string $user, string $pass, string $dsn)
     {
         //初始化一个PDO对象
         $this->pdo = new PDO($dsn, $user, $pass, [
@@ -68,10 +68,11 @@ class PdoClient
     }
 
     /**
-     * @param $config
+     * 连接数据库
+     * @param array $config
      * @return PdoClient
      */
-    public static function init($config): PdoClient
+    public static function connect(array $config): PdoClient
     {
         $dbms = $config['dbms'] ?? 'mysql';
         $host = $config['host'];
@@ -183,12 +184,12 @@ class PdoClient
 
     /**
      * 执行
-     * @param $sql
-     * @param $prepares
+     * @param string $sql
+     * @param array $prepares
      * @return PDOStatement
-     * @throws PdoClientException
+     * @throws \tjn\pdo\PdoClientException
      */
-    public function query($sql, $prepares): PDOStatement
+    public function query(string $sql, array $prepares): PDOStatement
     {
         $sth = $this->pdo->prepare($sql);
         if (!$sth) {
