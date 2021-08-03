@@ -2,6 +2,9 @@
 
 namespace tjn\pdo;
 
+use PDO;
+use PDOStatement;
+
 /**
  * pdo封装客户端
  */
@@ -58,15 +61,15 @@ class PdoClient
     private function __construct($user, $pass, $dsn)
     {
         //初始化一个PDO对象
-        $this->pdo = new \PDO($dsn, $user, $pass, [
-            \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+        $this->pdo = new PDO($dsn, $user, $pass, [
+            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
         ]);
-        $this->pdo->setAttribute(\PDO::ATTR_EMULATE_PREPARES, false);
+        $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     }
 
     /**
      * @param $config
-     * @return \tjn\pdo\PdoClient
+     * @return PdoClient
      */
     public static function init($config): PdoClient
     {
@@ -76,7 +79,7 @@ class PdoClient
         $dbName = $config['dbname'];
         $user = $config['user'];
         $pass = $config['password'];
-        $dsn = "{$dbms}:host={$host};port={$port};dbname={$dbName}";
+        $dsn = "$dbms:host=$host;port=$port;dbname=$dbName";
         return new PdoClient($user, $pass, $dsn);
     }
 
@@ -137,7 +140,7 @@ class PdoClient
      * limit
      * @param $start
      * @param $offset
-     * @return \tjn\pdo\PdoClient
+     * @return PdoClient
      */
     public function limit($start, $offset): PdoClient
     {
@@ -147,9 +150,9 @@ class PdoClient
 
     /**
      * 执行查询
-     * @throws \tjn\pdo\PdoClientException
+     * @throws PdoClientException
      */
-    protected function getStatement(): \PDOStatement
+    protected function getStatement(): PDOStatement
     {
         $where = $this->where ? " WHERE {$this->where}" : '';
         $this->sql = "SELECT {$this->field} FROM `{$this->table}` {$where} {$this->limit}";
@@ -159,33 +162,33 @@ class PdoClient
 
     /**
      * 获取单条
-     * @throws \tjn\pdo\PdoClientException
+     * @throws PdoClientException
      */
-    public function first()
+    public function first(): array
     {
         $this->limit(0, 1);
         $result = $this->getStatement();
-        return $result ? $result->fetch(\PDO::FETCH_ASSOC) : [];
+        return $result ? $result->fetch(PDO::FETCH_ASSOC) : [];
     }
 
     /**
      * 获取多条
-     * @throws \tjn\pdo\PdoClientException
+     * @throws PdoClientException
      */
-    public function all()
+    public function all(): array
     {
         $result = $this->getStatement();
-        return $result ? $result->fetchAll(\PDO::FETCH_ASSOC) : [];
+        return $result ? $result->fetchAll(PDO::FETCH_ASSOC) : [];
     }
 
     /**
      * 执行
      * @param $sql
      * @param $prepares
-     * @return \PDOStatement
-     * @throws \tjn\pdo\PdoClientException
+     * @return PDOStatement
+     * @throws PdoClientException
      */
-    public function query($sql, $prepares): \PDOStatement
+    public function query($sql, $prepares): PDOStatement
     {
         $sth = $this->pdo->prepare($sql);
         if (!$sth) {
