@@ -2,6 +2,9 @@
 
 namespace tjn\pdo;
 
+/**
+ * pdo封装客户端
+ */
 class PdoClient
 {
     /**
@@ -15,16 +18,40 @@ class PdoClient
      */
     protected $table = '';
 
+    /**
+     * 查询字段
+     * @var string
+     */
     protected $field = "*";
 
+    /**
+     * 预处理条件
+     * @var string
+     */
     protected $where = '';
 
+    /**
+     * 预处理条件值
+     * @var array
+     */
     protected $wherePrepares = [];
 
+    /**
+     * 所有预处理值
+     * @var array
+     */
     protected $prepares = [];
 
+    /**
+     * 最终生成预处理sql
+     * @var string
+     */
     protected $sql = '';
 
+    /**
+     * limit查询
+     * @var string
+     */
     protected $limit = "";
 
     //禁止实例化
