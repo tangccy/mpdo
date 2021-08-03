@@ -1,0 +1,23 @@
+{
+    "name": "tjn/mpdo",
+    "description": "pdo",
+    "type": "library",
+    "require": {
+        "php": ">=7.3"
+    },
+    "authors": [
+        {
+            "name": "kanin",
+            "email": "990921093@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "files": [
+
+        ],
+        "psr-4": {
+            "tjn\\pdo\\": "src"
+        }
+    }
+}
