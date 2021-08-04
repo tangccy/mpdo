@@ -21,14 +21,15 @@ $where = [
 $pdo = PdoClient::connect($config);
 
 try {
-    $data = $pdo->table('posts')
-        ->where([['id', 'IN', [1,2]], ['title', 'like', "%test%", "or"]])
-        ->groupBy("user_id")
-        ->orderBy("id desc")
-        ->select("*")
-        ->count();
+    $data = [
+        'user_id' => 1,
+        'title' => 'test',
+        'content' => 'content test',
+    ];
+    $id = $pdo->table('posts')->insert($data);
 } catch (PdoClientException $e) {
-    var_dump($e->getMessage(), $pdo->getLastSql());exit;
+    var_dump($e->getMessage());
+    exit;
 }
 $lastSql = $pdo->getLastSql();
-var_dump($data, $lastSql);
+var_dump($id, $lastSql);
