@@ -23,10 +23,10 @@ try {
         'title' => 'test',
         'content' => 'content test',
     ];
-    $id = $pdo->table('posts')->insert($data);
+    $status = $pdo->table('posts')->where([['id', '=', 1]])->update($data);
 } catch (PdoClientException $e) {
     var_dump($e->getMessage());
     exit;
 }
 $lastSql = $pdo->getLastSql();
-var_dump($id, $lastSql);
+var_dump($status, $lastSql);

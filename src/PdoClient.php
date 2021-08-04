@@ -241,7 +241,8 @@ class PdoClient
         foreach ($this->join as $join) {
             $joinStr .= ' ' . $join;
         }
-        $this->sql = "SELECT $this->field FROM `$this->table` `$this->alias` $joinStr $where $this->groupBy $this->orderBy $this->limit";
+        var_dump($join);
+        $this->sql = "SELECT $this->field FROM `$this->table` $this->alias $joinStr $where $this->groupBy $this->orderBy $this->limit";
         $this->prepares = array_merge($this->prepares, $this->wherePrepares);
         return $this->query($this->sql, $this->prepares);
     }
