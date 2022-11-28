@@ -8,11 +8,11 @@ require_once "../vendor/autoload.php";
 
 $config = [
     'dbms' => 'mysql',
-    'host' => '192.168.6.216',
-    'post' => '3306',
-    'dbname' => 'blog',
+    'host' => '127.0.0.1',
+    'port' => '3306',
+    'dbname' => 'learn01',
     'user' => 'root',
-    'password' => 'root',
+    'password' => '123456',
 ];
 $where = [
     ['id', '>=', 1],
@@ -32,24 +32,19 @@ try {
 //        ->where([['status', '=', 2], ['title', 'like', "%test2%", "or"]])
 //        ->groupBy("user_id")
 //        ->orderBy("id desc")
-//        ->select("*")
+//        ->field("*")
 //        ->all();
 //    $data = $pdo->table('posts')
 //        ->where([['id', 'IN', [1,2]], ['title', 'like', "%test%", "or"]])
 //        ->groupBy("user_id")
 //        ->orderBy("id desc")
-//        ->select("*")
+//        ->field("*")
 //        ->count();
-    $data = $pdo->table('posts', 'p')
-        ->where([['id', 'IN', [1,2]], ['title', 'like', "%test%", "or"]])
-        ->join('user u', 'u.id=p.user_id')
-        ->join('comment c', 'u.id=c.user_id', 'left')
-        ->groupBy("user_id")
-        ->orderBy("id desc")
-        ->select("*")
-        ->all();
+    $data = $pdo->table('users')
+        ->where("id", "=", 1)
+        ->field("*")
+        ->first();
 } catch (PdoClientException $e) {
-    var_dump($e->getMessage(), $pdo->getLastSql());exit;
+    var_dump($e->getMessage());exit;
 }
-$lastSql = $pdo->getLastSql();
-var_dump($data, $lastSql);
+var_dump($pdo->getLastSql());

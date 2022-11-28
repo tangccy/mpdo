@@ -7,12 +7,12 @@ require_once "../vendor/autoload.php";
 
 
 $config = [
-    'dbms' => 'mysql',
-    'host' => '192.168.6.216',
-    'post' => '3306',
-    'dbname' => 'blog',
-    'user' => 'root',
-    'password' => 'root',
+	'dbms' => 'mysql',
+	'host' => '127.0.0.1',
+	'port' => '3306',
+	'dbname' => 'learn01',
+	'user' => 'root',
+	'password' => '123456',
 ];
 
 $pdo = PdoClient::connect($config);
