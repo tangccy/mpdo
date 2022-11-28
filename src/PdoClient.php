@@ -100,7 +100,7 @@ class PdoClient
     {
         $dbms = $config['dbms'] ?? 'mysql';
         $host = $config['host'];
-        $port = $config['post'];
+        $port = $config['port'];
         $dbName = $config['dbname'];
         $user = $config['user'];
         $pass = $config['password'];
