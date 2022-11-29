@@ -1002,11 +1002,9 @@ SQL;
 			$info = $sth->errorInfo();
 			$sql = $sth->queryString;
 		}
-		$time = date('Y-m-d H:i:m');
-		$err = "===================================\n";
-		$err .= "ERROR:\nDATETIME:{$time}\nERROR_CODE:{$code}\nMESSAGE:{$info[2]}\n";
+		$err = "ERROR_CODE:{$code}\nMESSAGE:{$info[2]}\n";
 		if (isset($sql)) {
-			$err .= "SQL:$sql\n";
+			$err .= "SQL:".$this->getLastSql();
 		}
 		$err .= "===================================\n";
 		$this->errMsg = $err;
