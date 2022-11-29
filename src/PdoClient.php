@@ -1006,7 +1006,6 @@ SQL;
 		if (isset($sql)) {
 			$err .= "SQL:".$this->getLastSql();
 		}
-		$err .= "===================================\n";
 		$this->errMsg = $err;
 		return $this->errMsg;
 	}
